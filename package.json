@@ -1,0 +1,12 @@
+{
+  "name": "hash-club",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix backend install",
+    "start": "npm --prefix backend start"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
