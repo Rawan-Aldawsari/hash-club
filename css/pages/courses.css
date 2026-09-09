@@ -1,0 +1,9 @@
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;}
+  .filter-chip{padding:9px 18px;border-radius:11px;border:1.5px solid var(--line);font-size:13.5px;font-weight:700;background:#fff;cursor:pointer;}
+  .filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .bootcamp-card{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden;}
+  .bootcamp-media{background:linear-gradient(135deg,var(--navy),#1b1f42);padding:30px;display:flex;flex-direction:column;justify-content:center;color:#fff;}
+  .bootcamp-body{padding:30px;}
+  .mini-stat{text-align:center;}
+  .mini-stat b{display:block;font-family:'Alexandria',sans-serif;font-size:20px;}
+  .mini-stat span{font-size:11.5px;color:rgba(255,255,255,.7);}

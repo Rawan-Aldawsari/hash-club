@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحات التحكم | نادي هاش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+</head>
+<body data-auth="required">
+<div class="dash-shell">
+  <aside class="dash-side">
+    <div class="brand"><img src="../assets/logos/logo-white.png" alt="نادي هاش"></div>
+    <div class="dash-nav-group">
+      <h6>التنقّل</h6>
+      <nav class="dash-nav">
+        <a href="../index.html">🏠 الموقع الرئيسي</a>
+        <a href="profile.html">👤 ملفي الشخصي</a>
+        <a href="settings.html">⚙️ الإعدادات والإشعارات</a>
+      </nav>
+    </div>
+    <div class="dash-nav-group">
+      <h6>لوحات التحكم</h6>
+      <nav class="dash-nav">
+        <a href="#" class="active">لوحة التحكم</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <h1>لوحات التحكم</h1>
+      <div class="avatar">ل.ش</div>
+    </div>
+
+    <div class="role-tabs">
+      <button class="role-tab active" data-role="member">👤 لوحة العضو</button>
+      <button class="role-tab" data-role="admin">🛡️ لوحة الإدارة</button>
+      <button class="role-tab" data-role="instructor">🎓 لوحة المدرب</button>
+      <button class="role-tab" data-role="lead">🧩 لوحة قائد اللجنة</button>
+    </div>
+
+    <!-- MEMBER DASHBOARD -->
+    <div data-role-panel="member">
+      <div class="grid-4" style="margin-bottom:26px;">
+        <div class="stat-card reveal"><b>4</b><span>دورات قيد التقدّم</span></div>
+        <div class="stat-card reveal"><b>62</b><span>ساعة تعلّم</span></div>
+        <div class="stat-card reveal"><b>7</b><span>شهادات</span></div>
+        <div class="stat-card reveal"><b>2,340</b><span>نقطة</span></div>
+      </div>
+      <div class="grid-2" style="grid-template-columns:1.4fr .6fr;gap:22px;align-items:start;">
+        <div class="panel reveal">
+          <h4 style="color:var(--navy);margin-bottom:16px;">آخر نشاطاتي</h4>
+          <div class="timeline">
+            <div class="tl-item"><span class="time">اليوم</span><b>أنهيت درسًا في "DevOps"</b><p>الدرس 6 من 14</p></div>
+            <div class="tl-item"><span class="time">أمس</span><b>حضرت ندوة "مقدمة في DevOps"</b><p>+50 نقطة</p></div>
+            <div class="tl-item"><span class="time">قبل 3 أيام</span><b>نشرت مشروعًا جديدًا</b><p>52 إعجابًا</p></div>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <h4 style="color:var(--navy);margin-bottom:16px;">فعالياتي القادمة</h4>
+          <div class="pill" style="display:flex;justify-content:space-between;margin-bottom:10px;">ورشة Cloud Pipeline <span>6 أغسطس</span></div>
+          <div class="pill" style="display:flex;justify-content:space-between;">هاكاثون هاش AI <span>14 أغسطس</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div data-role-panel="admin" style="display:none;">
+      <div class="grid-4" style="margin-bottom:26px;">
+        <div class="stat-card reveal"><b>4,200</b><span>إجمالي الأعضاء</span></div>
+        <div class="stat-card reveal"><b>180</b><span>فعالية هذا العام</span></div>
+        <div class="stat-card reveal"><b>93%</b><span>نسبة الحضور</span></div>
+        <div class="stat-card reveal"><b>2,100</b><span>شهادة صادرة</span></div>
+      </div>
+      <div class="panel reveal" style="margin-bottom:22px;">
+        <h4 style="color:var(--navy);margin-bottom:16px;">طلبات انضمام قيد المراجعة</h4>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>الاسم</th><th>التخصص</th><th>تاريخ الطلب</th><th>الحالة</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>عبير الحارثي</td><td>هندسة برمجيات</td><td>29 يوليو</td><td><span class="pill warn">قيد المراجعة</span></td><td><button class="btn sm btn-primary">قبول</button></td></tr>
+            <tr><td>سلطان الغامدي</td><td>أمن معلومات</td><td>28 يوليو</td><td><span class="pill warn">قيد المراجعة</span></td><td><button class="btn sm btn-primary">قبول</button></td></tr>
+            <tr><td>منيرة العصيمي</td><td>تصميم UX</td><td>27 يوليو</td><td><span class="pill good">مقبول</span></td><td><button class="btn sm btn-ghost">عرض</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="grid-2" style="gap:22px;">
+        <div class="panel reveal"><h5 style="color:var(--navy);margin-bottom:14px;">أكثر الدورات مشاهدة</h5>
+          <div class="info-row"><span>أساسيات الحوسبة السحابية</span><span>1,240 مشاهدة</span></div>
+          <div class="info-row" style="border-bottom:none;"><span>تطوير الواجهات الأمامية</span><span>980 مشاهدة</span></div>
+        </div>
+        <div class="panel reveal"><h5 style="color:var(--navy);margin-bottom:14px;">أكثر التخصصات بين الأعضاء</h5>
+          <div class="info-row"><span>علوم الحاسب</span><span>34%</span></div>
+          <div class="info-row" style="border-bottom:none;"><span>هندسة البرمجيات</span><span>27%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTOR DASHBOARD -->
+    <div data-role-panel="instructor" style="display:none;">
+      <div class="grid-4" style="margin-bottom:26px;">
+        <div class="stat-card reveal"><b>3</b><span>دوراتي المنشورة</span></div>
+        <div class="stat-card reveal"><b>640</b><span>طالب مسجّل</span></div>
+        <div class="stat-card reveal"><b>4.9</b><span>متوسط التقييم</span></div>
+        <div class="stat-card reveal"><b>18</b><span>سؤال بانتظار الرد</span></div>
+      </div>
+      <div class="panel reveal" style="margin-bottom:22px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <h4 style="color:var(--navy);">دوراتي</h4><button class="btn btn-primary sm">+ إنشاء دورة جديدة</button>
+        </div>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>الدورة</th><th>الطلاب</th><th>التقييم</th><th>الحالة</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>أساسيات الحوسبة السحابية</td><td>412</td><td>⭐ 4.9</td><td><span class="pill good">منشورة</span></td><td><button class="btn sm btn-ghost">رفع درس</button></td></tr>
+            <tr><td>مقدمة DevOps المتقدمة</td><td>228</td><td>⭐ 4.8</td><td><span class="pill good">منشورة</span></td><td><button class="btn sm btn-ghost">رفع درس</button></td></tr>
+            <tr><td>Cloud Security Basics</td><td>0</td><td>—</td><td><span class="pill warn">مسودة</span></td><td><button class="btn sm btn-ghost">متابعة الإعداد</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="panel reveal"><h5 style="color:var(--navy);margin-bottom:14px;">إصدار شهادة لطالب</h5>
+        <div style="display:flex;gap:10px;"><input class="input" placeholder="ابحث عن اسم الطالب..."><button class="btn btn-primary">إصدار</button></div>
+      </div>
+    </div>
+
+    <!-- COMMITTEE LEAD DASHBOARD -->
+    <div data-role-panel="lead" style="display:none;">
+      <div class="grid-4" style="margin-bottom:26px;">
+        <div class="stat-card reveal"><b>18</b><span>أعضاء اللجنة</span></div>
+        <div class="stat-card reveal"><b>6</b><span>مشاريع نشطة</span></div>
+        <div class="stat-card reveal"><b>10</b><span>مهمة مفتوحة</span></div>
+        <div class="stat-card reveal"><b>92%</b><span>نسبة الإنجاز</span></div>
+      </div>
+      <div class="panel reveal" style="margin-bottom:22px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <h4 style="color:var(--navy);">إدارة أعضاء اللجنة</h4><button class="btn btn-primary sm">+ إضافة عضو</button>
+        </div>
+        <div class="follow-row"><div class="avatar sm">س.ع</div><div>سارة العتيبي<span>عضوة منذ 8 أشهر</span></div><button class="btn btn-ghost sm">إدارة</button></div>
+        <div class="follow-row"><div class="avatar sm">ر.ع</div><div>ريم العنزي<span>عضوة منذ 5 أشهر</span></div><button class="btn btn-ghost sm">إدارة</button></div>
+      </div>
+      <div class="panel reveal">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <h4 style="color:var(--navy);">إنشاء مهمة جديدة</h4>
+        </div>
+        <div class="row-2">
+          <div class="field"><label>عنوان المهمة</label><input class="input" placeholder="مثال: تصميم بطاقة العضوية"></div>
+          <div class="field"><label>تكليف إلى</label><select class="input"><option>سارة العتيبي</option><option>ريم العنزي</option></select></div>
+        </div>
+        <button class="btn btn-primary sm">إنشاء المهمة ونشر إعلان</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+<script src="../js/main.js"></script>
+<script src="../js/pages/phase5.js"></script>
+<script src="../frontend/js/pages/phase6.js"></script>
+<script src="../js/pages/phase7.js"></script>
+<script src="../js/pages/phase8.js"></script>
+<script src="../js/pages/phase9.js"></script>
+</body></html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدخول | نادي هاش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/pages/auth.css">
+</head>
+<body>
+<div class="auth-shell">
+  <div class="auth-visual">
+    <a href="../index.html" class="back-home">→ العودة للرئيسية</a>
+    <div>
+      <img src="../assets/logos/hash-mark.png" alt="شعار نادي هاش" style="width:170px;display:block;margin:0 auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.35));">
+      <h3>بوابتك إلى مجتمع هاش</h3>
+      <p>سجّل دخولك لتتابع نقاطك، شاراتك، دوراتك، وكل ما يخص عضويتك في مكان واحد.</p>
+    </div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-card">
+      <div class="brand"><img src="../assets/logos/logo-navy.png" alt="نادي هاش"></div>
+      <div class="tabs" data-tabs>
+        <button type="button" class="tab-btn active" data-tab="login">تسجيل الدخول</button>
+        <button type="button" class="tab-btn" data-tab="signup">حساب جديد</button>
+      </div>
+
+      <div class="tab-panel active" data-panel="login">
+        <div class="field"><label>البريد الإلكتروني</label><input class="input" type="email" id="loginEmail" placeholder="name@example.com" autocomplete="email"></div>
+        <div class="field"><label>كلمة المرور</label><input class="input" type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"></div>
+        <div id="loginError" style="display:none;color:var(--danger);font-size:12.5px;font-weight:700;margin:-8px 0 16px;line-height:1.7;"></div>
+        <button type="button" class="btn btn-primary btn-block" id="loginSubmitBtn">تسجيل الدخول</button>
+      </div>
+
+      <div class="tab-panel" data-panel="signup">
+        <div class="row-2">
+          <div class="field"><label>الاسم الأول</label><input class="input" id="signupFirst" placeholder="مثال: سارة" autocomplete="given-name"></div>
+          <div class="field"><label>اسم العائلة</label><input class="input" id="signupLast" placeholder="مثال: العتيبي" autocomplete="family-name"></div>
+        </div>
+        <div class="field"><label>البريد الإلكتروني</label><input class="input" type="email" id="signupEmail" placeholder="name@example.com" autocomplete="email"></div>
+        <div class="field"><label>كلمة المرور</label><input class="input" type="password" id="signupPassword" placeholder="8 أحرف على الأقل" autocomplete="new-password"></div>
+        <div id="signupError" style="display:none;color:var(--danger);font-size:12.5px;font-weight:700;margin:-8px 0 16px;line-height:1.7;"></div>
+        <label class="checkbox-row" style="margin-bottom:20px;"><input type="checkbox" id="signupTerms"> أوافق على شروط الاستخدام وسياسة الخصوصية</label>
+        <button type="button" class="btn btn-primary btn-block" id="signupSubmitBtn">إنشاء الحساب</button>
+        <p class="sub" style="margin-top:16px;">بعد إنشاء الحساب سيتم تحويلك إلى صفحة طلب الانضمام للنادي.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../js/main.js"></script>
+</body>
+</html>

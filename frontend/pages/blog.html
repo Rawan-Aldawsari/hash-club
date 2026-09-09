@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المدونة | نادي هاش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+<header id="siteHeader"><div class="container">
+  <a href="../index.html" class="brand"><img src="../assets/logos/logo-navy.png" alt="نادي هاش"></a>
+  <nav id="mainNav"><ul>
+    <li><a href="../index.html">الرئيسية</a></li><li><a href="events.html">الفعاليات</a></li>
+    <li><a href="courses.html">الدورات</a></li><li><a href="community.html">المجتمع</a></li>
+    <li><a href="committees.html">اللجان</a></li><li><a href="projects.html">المشاريع</a></li><li><a href="blog.html" class="active">المدونة</a></li>
+  </ul></nav>
+  <div class="header-actions"><a href="auth.html" class="btn btn-ghost">تسجيل الدخول</a><a href="join.html" class="btn btn-primary">انضم الآن</a>
+  <button class="menu-toggle"><span></span><span></span><span></span></button></div>
+</div></header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">الرئيسية</a> / المدونة</div>
+    <div class="eyebrow">مدونة هاش</div>
+    <h1>مقالات تقنية بأقلام المجتمع</h1>
+    <button class="btn btn-primary js-toggle-form" id="addPostBtn" style="margin-top:20px;">+ اكتبي مقالًا</button>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container">
+
+    <div class="panel reveal" id="addPostForm" style="display:none;margin-bottom:36px;max-width:680px;">
+      <h4 style="color:var(--ink);margin-bottom:18px;">مقال جديد</h4>
+      <div class="field"><label>العنوان</label><input class="input" id="bTitle" placeholder="عنوان المقال"></div>
+      <div class="field"><label>التصنيف</label>
+        <select class="input" id="bCategory">
+          <option>AI</option><option>Web</option><option>Cloud</option><option>UI/UX</option><option>Security</option><option>عام</option>
+        </select>
+      </div>
+      <div class="field"><label>المحتوى</label><textarea class="input" id="bBody" rows="6" placeholder="اكتبي مقالك هنا..."></textarea></div>
+      <div id="addPostError" style="display:none;color:var(--danger);font-size:12.5px;font-weight:700;margin-bottom:14px;"></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-primary js-add-post" id="submitPostBtn">نشر المقال</button>
+        <button class="btn btn-ghost js-toggle-form" id="cancelPostBtn">إلغاء</button>
+      </div>
+    </div>
+
+    <div class="filters reveal" id="categoryFilters" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px;">
+      <button class="filter-chip js-filter active" data-cat="الكل" style="padding:9px 18px;border-radius:11px;border:1.5px solid var(--line);font-weight:700;background:var(--navy);color:#fff;">الكل</button>
+      <button class="filter-chip js-filter" data-cat="AI" style="padding:9px 18px;border-radius:11px;border:1.5px solid var(--line);font-weight:700;background:#fff;">AI</button>
+      <button class="filter-chip js-filter" data-cat="Web" style="padding:9px 18px;border-radius:11px;border:1.5px solid var(--line);font-weight:700;background:#fff;">Web</button>
+      <button class="filter-chip js-filter" data-cat="Cloud" style="padding:9px 18px;border-radius:11px;border:1.5px solid var(--line);font-weight:700;background:#fff;">Cloud</button>
+      <button class="filter-chip js-filter" data-cat="UI/UX" style="padding:9px 18px;border-radius:11px;border:1.5px solid var(--line);font-weight:700;background:#fff;">UI/UX</button>
+      <button class="filter-chip js-filter" data-cat="Security" style="padding:9px 18px;border-radius:11px;border:1.5px solid var(--line);font-weight:700;background:#fff;">Security</button>
+    </div>
+
+    <div id="blogGrid" class="grid-3"></div>
+    <div id="blogEmpty" style="display:none;text-align:center;padding:60px 20px;color:var(--ink-soft);">
+      <p style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;">لا توجد مقالات بعد</p>
+      <p style="font-size:14px;">كوني أول من يكتب مقالًا في مدونة هاش 👆</p>
+    </div>
+    <div id="blogLoading" style="text-align:center;padding:40px;color:var(--ink-soft);font-size:13.5px;">جارِ تحميل المقالات...</div>
+
+    <div class="panel reveal" id="articleView" style="display:none;margin-top:36px;">
+      <button class="btn btn-ghost sm js-close-article" id="closeArticleBtn" style="margin-bottom:20px;">← رجوع لكل المقالات</button>
+      <h2 id="articleTitle" style="color:var(--ink);margin-bottom:10px;"></h2>
+      <div class="card-meta" id="articleMeta" style="margin-bottom:20px;"></div>
+      <div id="articleBody" style="line-height:2;font-size:15px;color:var(--ink-soft);white-space:pre-wrap;"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer><div class="container">
+  <div class="foot-bottom"><span>© 2026 نادي هاش.</span><span>صُنع بهوية هاش</span></div>
+</div></footer>
+<script src="../js/main.js"></script>
+<script src="../js/pages/blog.js"></script>
+<script src="../js/pages/phase5.js"></script>
+<script src="../js/pages/phase6.js"></script>
+<script src="../js/pages/phase7.js"></script>
+<script src="../js/pages/phase8.js"></script>
+<script src="../js/pages/phase9.js"></script>
+  <script src="../js/pages/phase10.js"></script>
+<script src="../js/pages/phase11.js"></script>
+</body></html>

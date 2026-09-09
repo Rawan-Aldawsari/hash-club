@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>معرض المشاريع | نادي هاش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+<header id="siteHeader"><div class="container">
+  <a href="../index.html" class="brand"><img src="../assets/logos/logo-navy.png" alt="نادي هاش"></a>
+  <nav id="mainNav"><ul>
+    <li><a href="../index.html">الرئيسية</a></li><li><a href="events.html">الفعاليات</a></li>
+    <li><a href="courses.html">الدورات</a></li><li><a href="community.html">المجتمع</a></li>
+    <li><a href="committees.html">اللجان</a></li><li><a href="projects.html" class="active">المشاريع</a></li><li><a href="blog.html">المدونة</a></li>
+  </ul></nav>
+  <div class="header-actions"><a href="auth.html" class="btn btn-ghost">تسجيل الدخول</a><a href="join.html" class="btn btn-primary">انضم الآن</a>
+  <button class="menu-toggle"><span></span><span></span><span></span></button></div>
+</div></header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">الرئيسية</a> / معرض المشاريع</div>
+    <div class="eyebrow">مشاريع الأعضاء</div>
+    <h1>ما بناه أعضاء هاش</h1>
+    <p>مشاريع حقيقية أضافها الأعضاء بأنفسهم — من فكرة إلى منتج.</p>
+    <button class="btn btn-primary js-toggle-form" id="addProjectBtn" style="margin-top:20px;">+ إضافة مشروعي</button>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container">
+
+    <div class="panel reveal" id="addProjectForm" style="display:none;margin-bottom:36px;max-width:640px;">
+      <h4 style="color:var(--ink);margin-bottom:18px;">إضافة مشروع جديد</h4>
+      <div class="field"><label>اسم المشروع</label><input class="input" id="pName" placeholder="مثال: نظام تصميم هاش"></div>
+      <div class="field"><label>الوصف</label><textarea class="input" id="pDesc" placeholder="وصف موجز عن المشروع وما يحلّه"></textarea></div>
+      <div class="row-2">
+        <div class="field"><label>رابط GitHub (اختياري)</label><input class="input" id="pGithub" placeholder="https://github.com/..."></div>
+        <div class="field"><label>رابط تجربة حية Demo (اختياري)</label><input class="input" id="pDemo" placeholder="https://..."></div>
+      </div>
+      <div class="field"><label>التقنيات المستخدمة (افصلي بينها بفاصلة)</label><input class="input" id="pTech" placeholder="React, Node.js, PostgreSQL"></div>
+      <div id="addProjectError" style="display:none;color:var(--danger);font-size:12.5px;font-weight:700;margin-bottom:14px;"></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-primary js-add-project" id="submitProjectBtn">نشر المشروع</button>
+        <button class="btn btn-ghost js-toggle-form" id="cancelProjectBtn">إلغاء</button>
+      </div>
+    </div>
+
+    <div id="projectsGrid" class="grid-3"></div>
+    <div id="projectsEmpty" style="display:none;text-align:center;padding:60px 20px;color:var(--ink-soft);">
+      <p style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;">لا توجد مشاريع منشورة بعد</p>
+      <p style="font-size:14px;">كوني أول من يشارك مشروعه مع مجتمع هاش 👆</p>
+    </div>
+    <div id="projectsLoading" style="text-align:center;padding:40px;color:var(--ink-soft);font-size:13.5px;">جارِ تحميل المشاريع...</div>
+
+  </div>
+</section>
+
+<footer><div class="container">
+  <div class="foot-bottom"><span>© 2026 نادي هاش.</span><span>صُنع بهوية هاش</span></div>
+</div></footer>
+<script src="../js/main.js"></script>
+<script src="../js/pages/projects.js"></script>
+<script src="../js/pages/phase5.js"></script>
+<script src="../js/pages/phase6.js"></script>
+<script src="../js/pages/phase7.js"></script>
+<script src="../js/pages/phase8.js"></script>
+<script src="../js/pages/phase9.js"></script>
+  <script src="../js/pages/phase10.js"></script>
+<script src="../js/pages/phase11.js"></script>
+</body></html>

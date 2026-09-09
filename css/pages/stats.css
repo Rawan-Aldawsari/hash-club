@@ -1,0 +1,3 @@
+.bar-chart{display:flex;align-items:flex-end;gap:12px;height:160px;}
+  .bar-chart .bar{flex:1;background:linear-gradient(180deg,var(--periwinkle),var(--navy));border-radius:8px 8px 0 0;position:relative;}
+  .bar-chart .bar span{position:absolute;bottom:-22px;right:0;left:0;text-align:center;font-size:11px;color:var(--ink-soft);}

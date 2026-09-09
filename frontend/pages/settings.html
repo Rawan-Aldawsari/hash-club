@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإعدادات | نادي هاش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+</head>
+<body data-auth="required">
+<header id="siteHeader"><div class="container">
+  <a href="../index.html" class="brand"><img src="../assets/logos/logo-navy.png" alt="نادي هاش"></a>
+  <nav id="mainNav"><ul>
+    <li><a href="../index.html">الرئيسية</a></li><li><a href="dashboards.html">لوحة التحكم</a></li>
+    <li><a href="profile.html">ملفي الشخصي</a></li>
+  </ul></nav>
+  <div class="header-actions"><a href="profile.html" class="btn btn-primary">ملفي الشخصي</a>
+  <button class="menu-toggle"><span></span><span></span><span></span></button></div>
+</div></header>
+
+<section class="page-hero" style="padding-bottom:30px;">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">الرئيسية</a> / الإعدادات</div>
+    <div class="eyebrow">حسابي</div>
+    <h1>الإعدادات، الإشعارات، والأمان</h1>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container">
+    <div class="settings-shell">
+      <nav class="settings-nav" data-tabs>
+        <a href="javascript:void(0)" class="tab-btn active" data-tab="profile" style="text-align:right;">تعديل الملف الشخصي</a>
+        <a href="javascript:void(0)" class="tab-btn" data-tab="password" style="text-align:right;">كلمة المرور</a>
+        <a href="javascript:void(0)" class="tab-btn" data-tab="privacy" style="text-align:right;">الخصوصية</a>
+        <a href="javascript:void(0)" class="tab-btn" data-tab="notifications" style="text-align:right;">الإشعارات</a>
+        <a href="javascript:void(0)" class="tab-btn" data-tab="security" style="text-align:right;">الأمان</a>
+        <a href="javascript:void(0)" class="tab-btn" data-tab="general" style="text-align:right;">عام</a>
+      </nav>
+
+      <div>
+        <div class="tab-panel active panel" data-panel="profile">
+          <h4 style="color:var(--ink);margin-bottom:20px;">تعديل الملف الشخصي</h4>
+          <div class="row-2">
+            <div class="field"><label>الاسم الكامل</label><input class="input" value="لمى الشمري"></div>
+            <div class="field"><label>البريد الإلكتروني</label><input class="input" value="lama@example.com"></div>
+          </div>
+          <div class="row-2">
+            <div class="field"><label>الجامعة</label><input class="input" value="جامعة الأميرة نورة"></div>
+            <div class="field"><label>التخصص</label><input class="input" value="تصميم واجهات وتجربة مستخدم"></div>
+          </div>
+          <div class="field"><label>النبذة</label><textarea class="input">مصممة واجهات شغوفة بتجربة المستخدم...</textarea></div>
+          <button class="btn btn-primary">حفظ التغييرات</button>
+        </div>
+
+        <div class="tab-panel panel" data-panel="password">
+          <h4 style="color:var(--ink);margin-bottom:20px;">تغيير كلمة المرور</h4>
+          <div class="field"><label>كلمة المرور الحالية</label><input class="input" type="password"></div>
+          <div class="field"><label>كلمة المرور الجديدة</label><input class="input" type="password"></div>
+          <div class="field"><label>تأكيد كلمة المرور الجديدة</label><input class="input" type="password"></div>
+          <button class="btn btn-primary">تحديث كلمة المرور</button>
+        </div>
+
+        <div class="tab-panel panel" data-panel="privacy">
+          <h4 style="color:var(--ink);margin-bottom:8px;">إعدادات الخصوصية</h4>
+          <div class="settings-row"><div><h6>إظهار ملفي الشخصي للعامة</h6><p>يمكن لغير الأعضاء رؤية ملفك الشخصي</p></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><h6>إظهار نقاطي في لوحة الصدارة</h6><p>يمكن للأعضاء رؤية ترتيبك ونقاطك</p></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><h6>السماح بالرسائل الخاصة من أي عضو</h6><p>إن أُغلق، تصلك الرسائل من متابعينك فقط</p></div><div class="toggle"></div></div>
+        </div>
+
+        <div class="tab-panel panel" data-panel="notifications">
+          <h4 style="color:var(--ink);margin-bottom:8px;">إعدادات الإشعارات</h4>
+          <div class="settings-row"><div><h6>بدء فعالية سجّلت بها</h6></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><h6>قبول أو رفض طلب الانضمام</h6></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><h6>نشر إعلان في لجنتي</h6></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><h6>إضافة دورة جديدة تناسب اهتماماتي</h6></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><h6>اقتراب انتهاء التسجيل بفعالية</h6></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><h6>رد على تعليقي</h6></div><div class="toggle on"></div></div>
+          <div class="settings-row" style="border-bottom:none;"><div><h6>رسالة خاصة جديدة</h6></div><div class="toggle on"></div></div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 12px;">
+            <h5 style="color:var(--ink);font-size:14px;margin:0;">مركز الإشعارات الأخيرة</h5>
+            <button class="btn btn-ghost sm" id="markAllNotificationsRead">تحديد الكل كمقروء</button>
+          </div>
+          <div class="timeline" id="realNotificationsTimeline">
+            <div class="tl-item"><b>جارٍ تحميل إشعاراتك...</b></div>
+          </div>
+        </div>
+
+        <div class="tab-panel panel" data-panel="security">
+          <h4 style="color:var(--ink);margin-bottom:8px;">الأمان</h4>
+          <div class="settings-row"><div><h6>المصادقة الثنائية (2FA)</h6><p>طبقة حماية إضافية عند تسجيل الدخول</p></div><div class="toggle"></div></div>
+          <div class="settings-row"><div><h6>التحقق من البريد الإلكتروني</h6><p>تم التحقق بنجاح</p></div><span class="pill good">موثّق</span></div>
+          <div class="settings-row"><div><h6>تشفير كلمة المرور</h6><p>تُخزَّن بياناتك مشفّرة دائمًا</p></div><span class="pill good">مفعّل</span></div>
+          <h5 style="color:var(--ink);margin:22px 0 12px;font-size:14px;">الجلسات النشطة</h5>
+          <div class="info-row"><span>iPhone 15 — جدة، السعودية</span><span class="pill good">الجلسة الحالية</span></div>
+          <div class="info-row"><span>Chrome — Windows — الرياض</span><button class="btn sm btn-ghost">إنهاء الجلسة</button></div>
+          <h5 style="color:var(--ink);margin:22px 0 12px;font-size:14px;">سجل النشاط (Audit Log)</h5>
+          <p style="font-size:13px;color:var(--ink-soft);">آخر تسجيل دخول: اليوم 9:42 صباحًا من جدة.</p>
+        </div>
+
+        <div class="tab-panel panel" data-panel="general">
+          <h4 style="color:var(--ink);margin-bottom:8px;">إعدادات عامة</h4>
+          <div class="settings-row"><div><h6>اللغة</h6></div>
+            <select class="input" style="width:160px;"><option>العربية</option><option>English</option></select>
+          </div>
+          <div class="settings-row"><div><h6>الوضع الليلي</h6></div><div class="toggle"></div></div>
+          <div class="settings-row" style="border-bottom:none;">
+            <div><h6 style="color:var(--danger);">حذف الحساب</h6><p>هذا الإجراء نهائي ولا يمكن التراجع عنه</p></div>
+            <button class="btn btn-danger sm" hidden>حذف حسابي</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container">
+  <div class="foot-bottom"><span>© 2026 نادي هاش.</span><span>صُنع بهوية هاش</span></div>
+</div></footer>
+<script src="../js/main.js"></script>
+<script src="../js/pages/actions.js"></script>
+<script src="../js/pages/phase3.js"></script>
+<script src="../js/pages/phase5.js"></script>
+<script src="../js/pages/phase6.js"></script>
+<script src="../js/pages/phase7.js"></script>
+<script src="../js/pages/phase8.js"></script>
+<script src="../js/pages/phase9.js"></script>
+  <script src="../js/pages/phase10.js"></script>
+<script src="../js/pages/phase11.js"></script>
+</body></html>

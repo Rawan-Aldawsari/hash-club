@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المجتمع | نادي هاش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+<header id="siteHeader"><div class="container">
+  <a href="../index.html" class="brand"><img src="../assets/logos/logo-navy.png" alt="نادي هاش"></a>
+  <nav id="mainNav"><ul>
+    <li><a href="../index.html">الرئيسية</a></li><li><a href="events.html">الفعاليات</a></li>
+    <li><a href="courses.html">الدورات</a></li><li><a href="community.html" class="active">المجتمع</a></li>
+    <li><a href="committees.html">اللجان</a></li><li><a href="projects.html">المشاريع</a></li><li><a href="blog.html">المدونة</a></li>
+  </ul></nav>
+  <div class="header-actions"><a href="messages.html" class="btn btn-ghost">الرسائل الخاصة</a><a href="profile.html" class="btn btn-primary">ملفي الشخصي</a>
+  <button class="menu-toggle"><span></span><span></span><span></span></button></div>
+</div></header>
+
+<section class="page-hero" style="padding-bottom:40px;">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">الرئيسية</a> / المجتمع</div>
+    <div class="eyebrow">المجتمع</div>
+    <h1>منشورات، نقاشات، ومجموعات اهتمام</h1>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container wide">
+    <div class="feed-layout">
+
+      <!-- LEFT: real profile mini + honest placeholders -->
+      <div>
+        <div class="panel side-block reveal" id="miniProfileBox">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div class="avatar" id="miniAvatar">؟</div>
+            <div><b style="font-size:14px;color:var(--ink);" id="miniName">سجّلي دخولك</b><br><span style="font-size:12px;color:var(--ink-soft);" id="miniSub">لمشاركة منشورات باسمك</span></div>
+          </div>
+          <a href="profile.html" class="btn btn-ghost sm btn-block" id="miniProfileLink">تسجيل الدخول</a>
+        </div>
+        <div class="panel side-block reveal">
+          <h5>المجموعات</h5>
+          <p style="font-size:12.5px;color:var(--ink-soft);line-height:1.8;">ميزة إنشاء والانضمام لمجموعات الاهتمام (Flutter، Python، أمن سيبراني...) قيد التطوير حاليًا.</p>
+        </div>
+      </div>
+
+      <!-- CENTER: real feed -->
+      <div>
+        <div class="panel compose reveal">
+          <div style="display:flex;gap:12px;">
+            <div class="avatar" id="composeAvatar">؟</div>
+            <textarea id="composeText" placeholder="شارك تحديثًا، سؤالًا، أو إنجازًا مع مجتمع هاش..." rows="2"></textarea>
+          </div>
+          <div class="compose-actions">
+            <div class="compose-icons" style="opacity:.4;" title="إرفاق الملفات غير متاح بعد">🖼️ 🎬 📎</div>
+            <button class="btn btn-primary sm" id="publishBtn">نشر</button>
+          </div>
+        </div>
+
+        <div id="postsFeed"></div>
+        <div id="feedEmpty" style="display:none;text-align:center;padding:50px 20px;color:var(--ink-soft);">
+          <p style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;">لا توجد منشورات بعد</p>
+          <p style="font-size:13.5px;">كوني أول من يشارك تحديثًا مع مجتمع هاش 👆</p>
+        </div>
+        <div id="feedLoading" style="text-align:center;padding:40px;color:var(--ink-soft);font-size:13.5px;">جارِ تحميل المنشورات...</div>
+      </div>
+
+      <!-- RIGHT: suggestions -->
+      <div>
+        <div class="panel side-block reveal">
+          <h5>وسوم رائجة</h5>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="pill">#AI</span><span class="pill">#Flutter</span><span class="pill">#Web</span><span class="pill">#UIUX</span><span class="pill">#Cloud</span><span class="pill">#Security</span>
+          </div>
+        </div>
+        <div class="panel side-block reveal">
+          <h5>متابعة الأعضاء</h5>
+          <p style="font-size:12.5px;color:var(--ink-soft);line-height:1.8;">ميزة متابعة الأعضاء قيد التطوير حاليًا.</p>
+        </div>
+        <div class="panel side-block reveal">
+          <h5>الرسائل الخاصة</h5>
+          <a href="messages.html" class="btn btn-primary sm btn-block">فتح الرسائل</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><img src="../assets/logos/logo-white.png" alt="نادي هاش"><p>نادٍ سحابي يجمع التعلّم والمجتمع التقني في منصة واحدة.</p>
+    <div class="social-row"><a href="javascript:void(0)">X</a><a href="javascript:void(0)">in</a><a href="javascript:void(0)">D</a><a href="javascript:void(0)">▶</a></div></div>
+    <div class="foot-col"><h5>النادي</h5><ul><li><a href="../index.html#about">عن النادي</a></li><li><a href="events.html">الفعاليات</a></li><li><a href="courses.html">الدورات</a></li><li><a href="committees.html">اللجان</a></li></ul></div>
+    <div class="foot-col"><h5>الموارد</h5><ul><li><a href="blog.html">المدونة</a></li><li><a href="resources.html">مكتبة الموارد</a></li><li><a href="search.html">البحث الشامل</a></li><li><a href="projects.html">مشاريع الأعضاء</a></li></ul></div>
+    <div class="foot-col"><h5>العضوية</h5><ul><li><a href="join.html">قدّم طلب انضمام</a></li><li><a href="auth.html">تسجيل الدخول</a></li><li><a href="dashboards.html">لوحات التحكم</a></li><li><a href="settings.html">الإعدادات</a></li></ul></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 نادي هاش.</span><span>صُنع بهوية هاش</span></div>
+</div></footer>
+<script src="../js/main.js"></script>
+<script src="../js/pages/community.js"></script>
+<script src="../js/pages/phase5.js"></script>
+<script src="../js/pages/phase6.js"></script>
+<script src="../js/pages/phase7.js"></script>
+<script src="../js/pages/phase8.js"></script>
+<script src="../js/pages/phase9.js"></script>
+  <script src="../js/pages/phase10.js"></script>
+<script src="../js/pages/phase11.js"></script>
+</body></html>

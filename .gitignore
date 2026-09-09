@@ -1,0 +1,20 @@
+# تبعيات Node.js (تُعاد بـ npm install)
+node_modules/
+
+# متغيرات بيئة حسّاسة — لا تُرفع أبدًا على GitHub
+.env
+
+# قاعدة البيانات المحلية (تُنشأ تلقائيًا عند أول تسجيل)
+backend/data/users.json
+
+# ملفات النظام
+.DS_Store
+Thumbs.db
+
+# ملفات محررات الأكواد
+.vscode/
+.idea/
+
+# سجلات
+*.log
+npm-debug.log*

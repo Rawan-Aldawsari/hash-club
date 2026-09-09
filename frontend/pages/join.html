@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طلب الانضمام | نادي هاش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+<header id="siteHeader"><div class="container">
+  <a href="../index.html" class="brand"><img src="../assets/logos/logo-navy.png" alt="نادي هاش"></a>
+  <nav id="mainNav"><ul>
+    <li><a href="../index.html">الرئيسية</a></li><li><a href="events.html">الفعاليات</a></li>
+    <li><a href="courses.html">الدورات</a></li><li><a href="community.html">المجتمع</a></li>
+    <li><a href="committees.html">اللجان</a></li><li><a href="projects.html">المشاريع</a></li><li><a href="blog.html">المدونة</a></li>
+  </ul></nav>
+  <div class="header-actions"><a href="auth.html" class="btn btn-ghost">تسجيل الدخول</a><a href="join.html" class="btn btn-primary">انضم الآن</a>
+  <button class="menu-toggle"><span></span><span></span><span></span></button></div>
+</div></header>
+
+<section class="page-hero">
+  <div class="container narrow">
+    <div class="breadcrumb"><a href="../index.html">الرئيسية</a> / طلب الانضمام</div>
+    <div class="eyebrow">عضوية نادي هاش</div>
+    <h1>انضم إلى مجتمع هاش</h1>
+    <p>بدلاً من القبول التلقائي، تتم مراجعة كل طلب من فريق العضوية لضمان انسجام الأعضاء مع أهداف النادي. تعبئة النموذج تستغرق دقيقتين فقط.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container narrow">
+    <div id="notLoggedIn" class="panel reveal" style="display:none;text-align:center;padding:50px 20px;">
+      <p style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:10px;">سجّلي دخولك أولًا لتقديم طلب الانضمام</p>
+      <a href="auth.html" class="btn btn-primary">تسجيل الدخول / حساب جديد</a>
+    </div>
+
+    <div id="joinContent" style="display:none;">
+    <div class="grid-2" style="grid-template-columns:2fr 1fr;gap:30px;align-items:start;">
+      <form class="panel reveal" id="joinForm">
+        <div class="row-2">
+          <div class="field"><label>الاسم الكامل</label><input class="input" id="jFullName" placeholder="مثال: نورة القحطاني"></div>
+          <div class="field"><label>البريد الإلكتروني</label><input class="input" id="jEmail" type="email" disabled></div>
+        </div>
+        <div class="row-2">
+          <div class="field"><label>الجامعة / الجهة</label><input class="input" id="jUniversity" placeholder="مثال: جامعة الملك سعود"></div>
+          <div class="field"><label>التخصص</label><input class="input" id="jMajor" placeholder="مثال: علوم الحاسب"></div>
+        </div>
+        <div class="field">
+          <label>مجال الاهتمام الرئيسي</label>
+          <select class="input" id="jInterest">
+            <option>الحوسبة السحابية</option><option>تطوير الويب</option><option>الذكاء الاصطناعي</option>
+            <option>أمن المعلومات</option><option>تصميم UI/UX</option><option>إدارة المشاريع</option>
+          </select>
+        </div>
+        <div class="field"><label>لماذا تريد الانضمام لنادي هاش؟</label><textarea class="input" id="jMotivation" placeholder="اكتب نبذة قصيرة عن دوافعك وما تتوقعه من العضوية..."></textarea></div>
+        <div class="field"><label>رابط ملفك التقني (اختياري)</label><input class="input" id="jPortfolio" placeholder="GitHub / LinkedIn / Portfolio"></div>
+        <div id="joinError" style="display:none;color:var(--danger);font-size:12.5px;font-weight:700;margin-bottom:14px;"></div>
+        <label class="checkbox-row" style="margin-bottom:22px;"><input type="checkbox" id="jAgree"> أقر بأنني اطّلعت على ميثاق النادي وألتزم به</label>
+        <button type="button" class="btn btn-primary btn-block js-submit-join" id="joinSubmitBtn">إرسال طلب الانضمام</button>
+      </form>
+
+      <div class="panel panel-tint reveal">
+        <h4 style="color:var(--ink);font-size:15px;margin-bottom:16px;">حالة طلبك الحالي</h4>
+        <div id="statusNone" style="display:none;">
+          <p style="font-size:13px;color:var(--ink-soft);line-height:1.9;">ما قدّمتِ طلب انضمام بعد. عبّئي النموذج وابدئي رحلتك مع هاش.</p>
+        </div>
+        <div id="statusPending" style="display:none;">
+          <div class="timeline">
+            <div class="tl-item"><span class="time">تم</span><b>تعبئة النموذج</b><p>استلمنا بياناتك بنجاح.</p></div>
+            <div class="tl-item"><span class="time">قيد المراجعة</span><b>مراجعة فريق العضوية</b><p>عادةً تستغرق من 24 إلى 48 ساعة.</p></div>
+            <div class="tl-item"><span class="time">قادم</span><b>القرار النهائي</b><p>قبول أو رفض مع إبداء السبب.</p></div>
+          </div>
+          <div class="pill warn" style="margin-top:6px;">الحالة: قيد المراجعة</div>
+          <p style="font-size:12.5px;color:var(--ink-soft);margin-top:14px;line-height:1.8;">لا يوجد بعد فريق إداري حقيقي يراجع الطلبات ويقرر — هذه الخطوة تحتاج لوحة تحكم إدارية فعلية.</p>
+        </div>
+        <div id="statusAccepted" style="display:none;">
+          <div class="pill good">الحالة: مقبول 🎉</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><img src="../assets/logos/logo-white.png" alt="نادي هاش"><p>نادٍ سحابي يجمع التعلّم والمجتمع التقني في منصة واحدة، بهوية بصرية متكاملة وتجربة عضوية حديثة.</p>
+    <div class="social-row"><a href="javascript:void(0)">X</a><a href="javascript:void(0)">in</a><a href="javascript:void(0)">D</a><a href="javascript:void(0)">▶</a></div></div>
+    <div class="foot-col"><h5>النادي</h5><ul><li><a href="../index.html#about">عن النادي</a></li><li><a href="events.html">الفعاليات</a></li><li><a href="courses.html">الدورات</a></li><li><a href="committees.html">اللجان</a></li></ul></div>
+    <div class="foot-col"><h5>الموارد</h5><ul><li><a href="blog.html">المدونة</a></li><li><a href="resources.html">مكتبة الموارد</a></li><li><a href="search.html">البحث الشامل</a></li><li><a href="projects.html">مشاريع الأعضاء</a></li></ul></div>
+    <div class="foot-col"><h5>العضوية</h5><ul><li><a href="join.html">قدّم طلب انضمام</a></li><li><a href="auth.html">تسجيل الدخول</a></li><li><a href="dashboards.html">لوحات التحكم</a></li><li><a href="settings.html">الإعدادات</a></li></ul></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 نادي هاش. جميع الحقوق محفوظة.</span><span>صُنع بهوية هاش</span></div>
+</div></footer>
+<script src="../js/main.js"></script>
+<script src="../js/pages/join.js"></script>
+<script src="../js/pages/phase5.js"></script>
+<script src="../js/pages/phase6.js"></script>
+<script src="../js/pages/phase7.js"></script>
+<script src="../js/pages/phase8.js"></script>
+<script src="../js/pages/phase9.js"></script>
+  <script src="../js/pages/phase10.js"></script>
+<script src="../js/pages/phase11.js"></script>
+</body></html>
