@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ROOT_DIR = path.join(__dirname, '..', 'frontend');
+const ROOT_DIR = path.resolve(__dirname, '..', 'frontend');
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
