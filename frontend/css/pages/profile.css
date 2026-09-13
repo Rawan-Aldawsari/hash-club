@@ -7,3 +7,14 @@
   .level-box b{display:block;font-size:22px;font-family:'Alexandria',sans-serif;}
   .level-box span{font-size:11.5px;color:rgba(255,255,255,.65);}
   .skill-chip{background:var(--tint);color:var(--periwinkle);font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:999px;}
+
+
+.profile-avatar-wrap{position:relative;width:96px;height:96px;flex:none;}
+.profile-avatar{overflow:hidden;background-position:center;background-size:cover;background-repeat:no-repeat;border:2px solid rgba(255,255,255,.24);box-shadow:0 10px 24px rgba(0,0,0,.16);}
+.profile-avatar.has-image{font-size:0;}
+.avatar-upload{position:absolute;right:-6px;bottom:-6px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;color:var(--navy);border:2px solid rgba(255,255,255,.9);box-shadow:0 8px 18px rgba(0,0,0,.18);cursor:pointer;font-size:15px;transition:.2s;}
+.avatar-upload:hover{transform:translateY(-2px);background:var(--tint-2);}
+.profile-head .info h1{color:#fff !important;line-height:1.35;padding-inline:0;}
+.profile-head .info p{padding-inline:0;}
+.profile-form-actions{flex-wrap:wrap;}
+@media(max-width:600px){.profile-head{padding:28px 22px;gap:18px}.profile-avatar-wrap{width:82px;height:82px}.avatar.lg.profile-avatar{width:82px;height:82px}.profile-form-actions .btn{flex:1;min-width:120px;}}

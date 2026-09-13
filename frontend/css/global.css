@@ -26,7 +26,9 @@ body{
   background:var(--white);
   overflow-x:hidden;
 }
-h1,h2,h3,h4,.display{font-family:'Alexandria', sans-serif;}
+h1,h2,h3,h4,h5,h6,.display{font-family:'Alexandria', sans-serif;}
+/* Arabic heading/list spacing: keeps letters and labels comfortably separated from nearby markers. */
+h1,h2,h3,h4,h5,h6{padding-inline:6px;}
 a{text-decoration:none;color:inherit;}
 ul{list-style:none;}
 img{max-width:100%;display:block;}
@@ -334,6 +336,46 @@ html[data-theme="dark"] .pillar-card, html[data-theme="dark"] .kanban-col{backgr
 html[data-theme="dark"] .float-card{background:var(--tint-2);color:var(--ink);}
 html[data-theme="dark"] .btn-light{background:var(--tint-2);color:var(--ink);}
 html[data-theme="dark"] .partner-chip{background:var(--tint-2);}
+/* Trainer review: make headings clearly readable in dark mode, including inline-colored headings. */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] .page-hero h1,
+html[data-theme="dark"] .section-head h2,
+html[data-theme="dark"] .card-body h3,
+html[data-theme="dark"] .res-row h6,
+html[data-theme="dark"] .settings-row h6,
+html[data-theme="dark"] .notif-drop h6{color:var(--ink) !important;}
+
+/* Preserve white headings on already-dark surfaces. */
+html[data-theme="dark"] .profile-head h1,
+html[data-theme="dark"] .auth-visual h1,
+html[data-theme="dark"] .auth-visual h2,
+html[data-theme="dark"] .auth-visual h3,
+html[data-theme="dark"] .auth-visual h4,
+html[data-theme="dark"] .stats-band h1,
+html[data-theme="dark"] .stats-band h2,
+html[data-theme="dark"] .stats-band h3,
+html[data-theme="dark"] .stats-band h4,
+html[data-theme="dark"] .cta-band h1,
+html[data-theme="dark"] .cta-band h2,
+html[data-theme="dark"] .cta-band h3,
+html[data-theme="dark"] .cta-band h4,
+html[data-theme="dark"] footer h1,
+html[data-theme="dark"] footer h2,
+html[data-theme="dark"] footer h3,
+html[data-theme="dark"] footer h4,
+html[data-theme="dark"] footer h5,
+html[data-theme="dark"] footer h6{color:#fff !important;}
+
+/* Trainer review: improve logo/graphic visibility on dark backgrounds. */
+html[data-theme="dark"] header .brand img,
+html[data-theme="dark"] .auth-visual img:not([src*="logo-white"]){filter:brightness(0) invert(1) drop-shadow(0 8px 18px rgba(0,0,0,.25));}
+/* Keep the main homepage Hash mark in its original brand color in dark mode. */
+html[data-theme="dark"] .hero-mark-img{filter:drop-shadow(0 20px 40px rgba(0,0,0,.35));}
 html[data-theme="dark"] .role-tab{background:var(--tint-2);}
 html[data-theme="dark"] .vote-btn{background:var(--tint-2);}
 html[data-theme="dark"] .chat-list-item:hover,
@@ -392,3 +434,45 @@ html[data-theme="dark"] .notif-drop{background:var(--tint-2);}
   .chat-shell{grid-template-columns:1fr;height:auto;}
   .chat-list{display:none;}
 }
+
+
+/* Final UI consistency pass: spacing, theme-safe controls and readable content. */
+h1,h2,h3,h4,h5,h6{padding-inline:8px;}
+.section-head h2,.page-hero h1,.card-body h3,.profile-head .info h1{padding-inline:0;}
+.breadcrumb a,.breadcrumb{padding-inline:2px;}
+html[data-theme="dark"] header:not(.solid) nav a,
+html[data-theme="dark"] header.solid nav a{color:var(--ink);}
+html[data-theme="dark"] header.solid{border-bottom:1px solid var(--line);}
+html[data-theme="dark"] .page-hero{background:radial-gradient(1100px 500px at 78% -10%,rgba(110,131,245,.18),transparent 60%),var(--navy-deep);}
+html[data-theme="dark"] .input,html[data-theme="dark"] select.input,html[data-theme="dark"] textarea.input{color:var(--ink);background:var(--tint-2);}
+html[data-theme="dark"] .input::placeholder,html[data-theme="dark"] textarea.input::placeholder{color:#8f95c1;}
+html[data-theme="dark"] .btn-ghost{color:var(--ink);}
+html[data-theme="dark"] .tab-btn:not(.active),html[data-theme="dark"] .filter-chip:not(.active),html[data-theme="dark"] .role-tab:not(.active),html[data-theme="dark"] .vote-btn{color:var(--ink);background:var(--tint-2) !important;}
+html[data-theme="dark"] .tab-btn.active,html[data-theme="dark"] .filter-chip.active,html[data-theme="dark"] .role-tab.active{color:#fff;}
+html[data-theme="dark"] .card-tag{background:rgba(27,31,66,.94);color:var(--ink);}
+html[data-theme="dark"] .card,html[data-theme="dark"] .panel,html[data-theme="dark"] .stat-card,html[data-theme="dark"] .task-card,html[data-theme="dark"] .badge-tile,html[data-theme="dark"] .cert-card{box-shadow:0 14px 36px rgba(0,0,0,.14);}
+html[data-theme="dark"] .jump-nav{background:var(--navy-deep);}
+html[data-theme="dark"] .hero-visual .float-card,html[data-theme="dark"] .testi-card,html[data-theme="dark"] .game-item,html[data-theme="dark"] .pillar-card{background:var(--tint-2) !important;color:var(--ink);}
+html[data-theme="dark"] .social-row a{background:rgba(255,255,255,.09);}
+.social-row{align-items:center;flex-wrap:wrap;}
+.social-row a{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.social-row a[aria-label]{font-size:0;}
+.social-row a[aria-label]::before{font-size:15px;}
+.social-row a[data-social="x"]::before{content:"𝕏";}
+.social-row a[data-social="linkedin"]::before{content:"in";font-weight:900;}
+.social-row a[data-social="instagram"]::before{content:"◎";}
+.social-row a[data-social="tiktok"]::before{content:"♪";}
+@media(max-width:720px){.container{padding-inline:20px;}section{padding:70px 0;}.page-hero{padding-top:145px;}h1,h2,h3,h4,h5,h6{padding-inline:4px;}}
+
+.footer-social-row{justify-content:center;margin:0 0 12px;}
+.footer-social-row a{width:40px;height:40px;}
+
+
+/* Hash Plus-style first-paint shell */
+html.hp-ready .hp-boot { display:none !important; }
+.hp-boot { position:fixed; inset:0; z-index:99999; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:.85rem; background:#FAFAFB; color:#2D3365; }
+.hp-boot-spin { width:36px; height:36px; border:3px solid #E8EAED; border-top-color:#6E83F5; border-radius:50%; animation:hp-boot-spin .9s linear infinite; }
+.hp-boot-text { color:#6B7280; font-size:.85rem; }
+@keyframes hp-boot-spin { to { transform:rotate(360deg); } }
+@media (prefers-color-scheme:dark) { .hp-boot { background:#0d1020; color:#fff; } .hp-boot-spin{border-color:#2a3048;border-top-color:#8b9cff}.hp-boot-text{color:#aab1c8} }
+

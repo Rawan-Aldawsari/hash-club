@@ -12,21 +12,11 @@ const HASH_DICT = {
   "لوحات التحكم":"Dashboards"
 };
 
-// ---- toast feedback (defined early, used by several features) ----
-function hcToast(msg){
-  try{
-    let t = document.getElementById('hcToast');
-    if(!t){
-      t = document.createElement('div');
-      t.id = 'hcToast';
-      t.style.cssText = 'position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--navy,#2d3365);color:#fff;padding:13px 24px;border-radius:12px;font-size:13.5px;font-weight:700;z-index:9999;box-shadow:0 20px 50px -20px rgba(45,51,101,.5);opacity:0;transition:opacity .25s ease;pointer-events:none;white-space:nowrap;font-family:"Cairo",sans-serif;';
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.style.opacity = '1';
-    clearTimeout(t._hcTimer);
-    t._hcTimer = setTimeout(()=>{ t.style.opacity = '0'; }, 2200);
-  }catch(e){ /* toast is cosmetic only */ }
+// ---- no popups / no toast messages ----
+// All actions update the page itself or navigate to the next real page.
+function hcToast(){
+  const old = document.getElementById('hcToast');
+  if(old) old.remove();
 }
 
 // ---- localStorage availability check (shows a visible banner if blocked) ----
@@ -61,92 +51,127 @@ function hcShowStorageWarning(){
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
-  ready(function(){
+  const API = '/api/auth';
+
+  ready(async function(){
     try{
-      if(!hcStorageAvailable()){
-        hcShowStorageWarning();
-        return; // nothing else in this module can work without storage
-      }
+      window.hcLogout = async function(){
+        try{ await fetch(API + '/logout', { method:'POST', credentials:'include' }); }catch(e){}
+        location.href = location.pathname.includes('/pages/') ? '../index.html' : 'index.html';
+      };
 
-      const getUsers = () => { try{ return JSON.parse(localStorage.getItem('hc_users')||'[]'); }catch(e){ return []; } };
-      const saveUsers = (list) => { try{ localStorage.setItem('hc_users', JSON.stringify(list)); }catch(e){} };
-      const getSession = () => { try{ return JSON.parse(localStorage.getItem('hc_session')||'null'); }catch(e){ return null; } };
-      const setSession = (u) => { try{ localStorage.setItem('hc_session', JSON.stringify({email:u.email, name:(u.firstName+' '+u.lastName).trim(), firstName:u.firstName})); }catch(e){} };
-      window.hcLogout = function(){ localStorage.removeItem('hc_session'); location.href = 'index.html'; };
-
+      // ---- signup ----
       const signupBtn = document.getElementById('signupSubmitBtn');
       if(signupBtn){
-        signupBtn.addEventListener('click', function(){
+        signupBtn.addEventListener('click', async function(){
+          const first = (document.getElementById('signupFirst')||{}).value ? document.getElementById('signupFirst').value.trim() : '';
+          const last = (document.getElementById('signupLast')||{}).value ? document.getElementById('signupLast').value.trim() : '';
+          const email = (document.getElementById('signupEmail')||{}).value ? document.getElementById('signupEmail').value.trim().toLowerCase() : '';
+          const pass = (document.getElementById('signupPassword')||{}).value || '';
+          const terms = (document.getElementById('signupTerms')||{}).checked;
+          const errBox = document.getElementById('signupError');
+          const showErr = (msg)=>{ if(errBox){ errBox.textContent = msg; errBox.style.display = 'block'; } };
+          if(errBox) errBox.style.display = 'none';
+
+          if(!first || !last){ showErr('الرجاء إدخال الاسم الأول واسم العائلة'); return; }
+          if(!email || email.indexOf('@') === -1 || email.indexOf('.') === -1){ showErr('الرجاء إدخال بريد إلكتروني صالح'); return; }
+          if(!pass || pass.length < 8){ showErr('كلمة المرور يجب أن تكون 8 أحرف على الأقل'); return; }
+          if(!terms){ showErr('يجب الموافقة على شروط الاستخدام وسياسة الخصوصية'); return; }
+
+          signupBtn.disabled = true;
           try{
-            const first = (document.getElementById('signupFirst')||{}).value ? document.getElementById('signupFirst').value.trim() : '';
-            const last = (document.getElementById('signupLast')||{}).value ? document.getElementById('signupLast').value.trim() : '';
-            const email = (document.getElementById('signupEmail')||{}).value ? document.getElementById('signupEmail').value.trim().toLowerCase() : '';
-            const pass = (document.getElementById('signupPassword')||{}).value || '';
-            const terms = (document.getElementById('signupTerms')||{}).checked;
-            const errBox = document.getElementById('signupError');
-            const showErr = (msg)=>{ if(errBox){ errBox.textContent = msg; errBox.style.display = 'block'; } };
-            if(errBox) errBox.style.display = 'none';
-            if(!first || !last){ showErr('الرجاء إدخال الاسم الأول واسم العائلة'); return; }
-            if(!email || email.indexOf('@') === -1 || email.indexOf('.') === -1){ showErr('الرجاء إدخال بريد إلكتروني صالح'); return; }
-            if(!pass || pass.length < 8){ showErr('كلمة المرور يجب أن تكون 8 أحرف على الأقل'); return; }
-            if(!terms){ showErr('يجب الموافقة على شروط الاستخدام وسياسة الخصوصية'); return; }
-            const users = getUsers();
-            if(users.some(function(u){ return u.email === email; })){ showErr('هذا البريد مسجّل بالفعل — جرّب تبويب "تسجيل الدخول"'); return; }
-            const newUser = {firstName:first, lastName:last, email:email, password:pass};
-            users.push(newUser);
-            saveUsers(users);
-            setSession(newUser);
-            hcToast('✅ تم إنشاء حسابك بنجاح، جاري تحويلك...');
-            setTimeout(function(){ location.href = 'join.html'; }, 800);
+            const res = await fetch(API + '/register', {
+              method:'POST',
+              credentials:'include',
+              headers:{ 'Content-Type':'application/json' },
+              body: JSON.stringify({ firstName:first, lastName:last, email:email, password:pass })
+            });
+            const data = await res.json().catch(()=>({}));
+            if(!res.ok){ showErr(data.error || 'حدث خطأ، حاول مرة أخرى'); signupBtn.disabled = false; return; }
+            location.href = 'join.html';
           }catch(err){
-            hcToast('حدث خطأ غير متوقع، حاول مرة أخرى');
+            showErr('تعذّر الاتصال بالخادم — تأكد إنك فاتحة الموقع عبر http://localhost:3000 وإن الخادم شغّال (npm start داخل مجلد server)');
+            signupBtn.disabled = false;
           }
         });
       }
 
+      // ---- login ----
       const loginBtn = document.getElementById('loginSubmitBtn');
       if(loginBtn){
-        loginBtn.addEventListener('click', function(){
+        loginBtn.addEventListener('click', async function(){
+          const email = (document.getElementById('loginEmail')||{}).value ? document.getElementById('loginEmail').value.trim().toLowerCase() : '';
+          const pass = (document.getElementById('loginPassword')||{}).value || '';
+          const errBox = document.getElementById('loginError');
+          const showErr = (msg)=>{ if(errBox){ errBox.textContent = msg; errBox.style.display = 'block'; } };
+          if(errBox) errBox.style.display = 'none';
+          if(!email || !pass){ showErr('الرجاء تعبئة البريد الإلكتروني وكلمة المرور'); return; }
+
+          loginBtn.disabled = true;
           try{
-            const email = (document.getElementById('loginEmail')||{}).value ? document.getElementById('loginEmail').value.trim().toLowerCase() : '';
-            const pass = (document.getElementById('loginPassword')||{}).value || '';
-            const errBox = document.getElementById('loginError');
-            const showErr = (msg)=>{ if(errBox){ errBox.textContent = msg; errBox.style.display = 'block'; } };
-            if(errBox) errBox.style.display = 'none';
-            if(!email || !pass){ showErr('الرجاء تعبئة البريد الإلكتروني وكلمة المرور'); return; }
-            const users = getUsers();
-            const found = users.find(function(u){ return u.email === email && u.password === pass; });
-            if(!found){
-              showErr('البريد الإلكتروني أو كلمة المرور غير صحيحة، أو لا يوجد حساب بهذا البريد — جرّب تبويب "حساب جديد"');
-              return;
-            }
-            setSession(found);
-            hcToast('✅ مرحبًا بعودتك، ' + found.firstName);
-            setTimeout(function(){ location.href = 'profile.html'; }, 700);
+            const res = await fetch(API + '/login', {
+              method:'POST',
+              credentials:'include',
+              headers:{ 'Content-Type':'application/json' },
+              body: JSON.stringify({ email:email, password:pass })
+            });
+            const data = await res.json().catch(()=>({}));
+            if(!res.ok){ showErr(data.error || 'البريد الإلكتروني أو كلمة المرور غير صحيحة'); loginBtn.disabled = false; return; }
+            location.href = 'profile.html';
           }catch(err){
-            hcToast('حدث خطأ غير متوقع، حاول مرة أخرى');
+            showErr('تعذّر الاتصال بالخادم — تأكد إنك فاتحة الموقع عبر http://localhost:3000 وإن الخادم شغّال (npm start داخل مجلد server)');
+            loginBtn.disabled = false;
           }
         });
       }
 
-      // reflect logged-in state in header (runs on every page)
-      const session = getSession();
-      if(session){
-        document.querySelectorAll('.header-actions a[href$="auth.html"]').forEach(function(a){
-          a.textContent = '👋 ' + session.name.split(' ')[0];
-          a.setAttribute('href', a.getAttribute('href').startsWith('pages/') ? 'pages/profile.html' : 'profile.html');
-        });
-        document.querySelectorAll('.header-actions a[href$="join.html"]').forEach(function(a){
-          a.textContent = 'تسجيل الخروج';
-          a.classList.remove('btn-primary'); a.classList.add('btn-ghost');
-          a.setAttribute('href', '#');
-          a.addEventListener('click', function(e){ e.preventDefault(); window.hcLogout(); });
-        });
-      }
+      // ---- reflect session in header + guard member-only pages ----
+      try{
+        const res = await fetch(API + '/me', { credentials:'include' });
+        if(res.ok){
+          const data = await res.json();
+          const user = data.user;
+          document.querySelectorAll('.header-actions a[href$="auth.html"]').forEach(function(a){
+            a.textContent = '👋 ' + user.firstName;
+            a.setAttribute('href', a.getAttribute('href').startsWith('pages/') ? 'pages/profile.html' : 'profile.html');
+          });
+          document.querySelectorAll('.header-actions a[href$="join.html"]').forEach(function(a){
+            a.textContent = 'تسجيل الخروج';
+            a.classList.remove('btn-primary'); a.classList.add('btn-ghost');
+            a.setAttribute('href', '#');
+            a.addEventListener('click', function(e){ e.preventDefault(); window.hcLogout(); });
+          });
 
-      // guard member-only pages
-      if(document.body.getAttribute('data-auth') === 'required' && !session){
-        location.href = 'auth.html';
+          // real notifications (no fake data)
+          try{
+            const nres = await fetch('/api/notifications', { credentials:'include' });
+            if(nres.ok){
+              const ndata = await nres.json();
+              const list = document.getElementById('notifList');
+              const badge = document.getElementById('notifBadge');
+              if(list){
+                if(ndata.notifications && ndata.notifications.length){
+                  list.innerHTML = ndata.notifications.slice(0, 8).map(function(n){
+                    const mins = Math.floor((Date.now() - new Date(n.createdAt).getTime()) / 60000);
+                    const when = mins < 1 ? 'الآن' : (mins < 60 ? ('قبل ' + mins + ' دقيقة') : ('قبل ' + Math.floor(mins/60) + ' ساعة'));
+                    return '<div class="notif-item"><span class="dot"></span><div><b>' + n.text.replace(/</g,'&lt;') + '</b><span>' + when + '</span></div></div>';
+                  }).join('');
+                } else {
+                  list.innerHTML = '<div style="padding:18px 10px;text-align:center;color:var(--ink-soft);font-size:12.5px;">لا توجد إشعارات بعد</div>';
+                }
+              }
+              if(badge && ndata.unreadCount > 0) badge.style.display = 'block';
+            }
+          }catch(e){}
+        } else if(document.body.getAttribute('data-auth') === 'required'){
+          location.href = 'auth.html';
+        }
+      }catch(err){
+        // الخادم غير متاح (مثلًا فتحتِ الملف مباشرة بدون تشغيل الخادم) — لا نكسر الصفحة،
+        // فقط الصفحات المحمية تبقى بدون حماية فعلية في هذه الحالة.
+        if(document.body.getAttribute('data-auth') === 'required'){
+          hcToast('⚠️ تعذّر التحقق من تسجيل الدخول — شغّلي الخادم أولًا (npm start)');
+        }
       }
     }catch(err){
       hcToast('تعذّر تحميل نظام الحسابات في هذه البيئة');
@@ -160,6 +185,31 @@ function hcShowStorageWarning(){
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Official Hash Club social accounts — shared by every footer.
+  try{
+    const socials = [
+      {key:'x', label:'X', url:'https://x.com/ihashclub'},
+      {key:'linkedin', label:'LinkedIn', url:'https://www.linkedin.com/company/hashclub/'},
+      {key:'instagram', label:'Instagram', url:'https://www.instagram.com/ihashclub/'},
+      {key:'tiktok', label:'TikTok', url:'https://www.tiktok.com/@ihashclub'}
+    ];
+    document.querySelectorAll('footer').forEach(footer => {
+      let row = footer.querySelector('.social-row');
+      if(!row){
+        const brand = footer.querySelector('.footer-brand');
+        if(brand){
+          row = document.createElement('div'); row.className='social-row'; brand.appendChild(row);
+        } else {
+          row = document.createElement('div'); row.className='social-row footer-social-row';
+          const bottom = footer.querySelector('.foot-bottom');
+          if(bottom) footer.querySelector('.container').insertBefore(row, bottom);
+          else footer.querySelector('.container').appendChild(row);
+        }
+      }
+      row.innerHTML = socials.map(s => `<a href="${s.url}" target="_blank" rel="noopener noreferrer" aria-label="${s.label}" data-social="${s.key}" title="${s.label}"></a>`).join('');
+    });
+  }catch(e){}
+
   // ---- inject header utility buttons (dark mode / notifications / language) ----
   try{
     const actions = document.querySelector('.header-actions');
@@ -169,12 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.style.cssText = 'display:flex;align-items:center;gap:10px;';
       wrap.innerHTML = `
         <div style="position:relative;">
-          <button class="icon-btn" id="notifBtn" title="الإشعارات">🔔<span class="badge-dot"></span></button>
+          <button class="icon-btn" id="notifBtn" title="الإشعارات">🔔<span class="badge-dot" id="notifBadge" style="display:none;"></span></button>
           <div class="notif-drop" id="notifDrop">
             <h6>الإشعارات الأخيرة</h6>
-            <div class="notif-item"><span class="dot"></span><div><b>ردّ فهد الدوسري على منشورك</b><span>قبل 10 دقائق</span></div></div>
-            <div class="notif-item"><span class="dot"></span><div><b>تذكير: ورشة Cloud Pipeline غدًا</b><span>اليوم</span></div></div>
-            <div class="notif-item"><span class="dot"></span><div><b>تم قبول طلب انضمامك للجنة</b><span>أمس</span></div></div>
+            <div id="notifList" style="padding:18px 10px;text-align:center;color:var(--ink-soft);font-size:12.5px;">لا توجد إشعارات بعد</div>
             <a href="settings.html" style="display:block;text-align:center;font-size:12px;font-weight:700;color:var(--periwinkle);padding:8px;">عرض كل الإشعارات</a>
           </div>
         </div>
@@ -183,18 +231,58 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       actions.insertBefore(wrap, actions.firstChild);
 
-      document.getElementById('notifBtn').addEventListener('click', (e)=>{
+      // fix relative path depth for links injected here (root index.html vs pages/*.html)
+      const hcPrefix = location.pathname.includes('/pages/') ? '' : 'pages/';
+      const notifViewAll = wrap.querySelector('.notif-drop a[href="settings.html"]');
+      if(notifViewAll) notifViewAll.setAttribute('href', hcPrefix + 'settings.html');
+
+      document.getElementById('notifBtn').addEventListener('click', async (e)=>{
         e.stopPropagation();
-        document.getElementById('notifDrop').classList.toggle('open');
+        const dropdown=document.getElementById('notifDrop');
+        dropdown.classList.toggle('open');
+        if(dropdown.classList.contains('open')){
+          try{
+            const r=await fetch('/api/notifications/read-all',{method:'POST',credentials:'include'});
+            if(r.ok){const badge=document.getElementById('notifBadge');if(badge)badge.style.display='none';}
+          }catch(err){}
+        }
       });
       document.addEventListener('click', ()=> { const d = document.getElementById('notifDrop'); if(d) d.classList.remove('open'); });
+
+      // apply saved theme immediately (before paint would be ideal, but this still runs early)
+      try{
+        const savedTheme = localStorage.getItem('hc_theme');
+        if(savedTheme === 'dark'){
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }catch(e){}
+
+      function hcSwapLogos(isDark){
+        document.querySelectorAll('.brand img, .footer-brand img').forEach(img => {
+          const src = img.getAttribute('src') || '';
+          if(isDark && src.includes('logo-navy.png')){
+            img.dataset.lightSrc = src;
+            img.src = src.replace('logo-navy.png', 'logo-white.png');
+          } else if(!isDark && img.dataset.lightSrc){
+            img.src = img.dataset.lightSrc;
+          }
+        });
+      }
+      hcSwapLogos(document.documentElement.getAttribute('data-theme') === 'dark');
 
       document.getElementById('darkBtn').addEventListener('click', (e)=>{
         const html = document.documentElement;
         const isDark = html.getAttribute('data-theme') === 'dark';
-        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        e.currentTarget.textContent = isDark ? '🌙' : '☀️';
+        const nowDark = !isDark;
+        html.setAttribute('data-theme', nowDark ? 'dark' : 'light');
+        e.currentTarget.textContent = nowDark ? '☀️' : '🌙';
+        hcSwapLogos(nowDark);
+        try{ localStorage.setItem('hc_theme', nowDark ? 'dark' : 'light'); }catch(err){}
       });
+      // reflect saved state on the toggle icon itself
+      if(document.documentElement.getAttribute('data-theme') === 'dark'){
+        document.getElementById('darkBtn').textContent = '☀️';
+      }
 
       let isEn = false;
       document.getElementById('langBtn').addEventListener('click', (e)=>{
@@ -290,13 +378,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // generic tabs
   try{
     document.querySelectorAll('[data-tabs]').forEach(wrap=>{
+      const scope = wrap.parentElement || wrap; // panels are siblings of the tabs wrapper, not children of it
       const btns = wrap.querySelectorAll('.tab-btn');
       btns.forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const target = btn.getAttribute('data-tab');
           wrap.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
           btn.classList.add('active');
-          wrap.querySelectorAll('.tab-panel').forEach(p=>{
+          scope.querySelectorAll('.tab-panel').forEach(p=>{
             p.classList.toggle('active', p.getAttribute('data-panel') === target);
           });
         });
@@ -337,105 +426,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }catch(e){}
 
-  // generic demo-button feedback (vote/follow/copy/chat-send/compose/etc.)
-  try{
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('button, a.btn, a.social-btn, .vote-btn');
-      if(!btn) return;
-
-      if(['notifBtn','darkBtn','langBtn','loginSubmitBtn','signupSubmitBtn'].includes(btn.id)) return;
-      if(btn.classList.contains('tab-btn') || btn.classList.contains('role-tab')) return;
-      if(btn.classList.contains('menu-toggle')) return;
-      if(btn.closest('#notifDrop')) return;
-      if(btn.closest('.chat-list-item')) return;
-
-      const tag = btn.tagName.toLowerCase();
-      if(tag === 'a'){
-        const href = btn.getAttribute('href');
-        if(href && href !== '#' && href.charAt(0) !== '#') return;
-        if(href && href.length > 1 && href.charAt(0) === '#' && document.getElementById(href.slice(1))) return;
-        e.preventDefault();
-      }
-
-      if(btn.classList.contains('vote-btn')){
-        const m = btn.textContent.match(/(\d+)/);
-        if(m){ btn.textContent = btn.textContent.replace(/\d+/, parseInt(m[1],10) + 1); }
-        btn.style.borderColor = 'var(--periwinkle)';
-        btn.style.color = 'var(--periwinkle)';
-        return;
-      }
-
-      const label = btn.textContent.trim();
-      if(label === 'متابعة'){
-        btn.textContent = 'تتم المتابعة ✓';
-        btn.classList.remove('btn-ghost'); btn.classList.add('btn-primary');
-        return;
-      }
-      if(label === 'تتم المتابعة ✓'){
-        btn.textContent = 'متابعة';
-        btn.classList.add('btn-ghost'); btn.classList.remove('btn-primary');
-        return;
-      }
-
-      if(label.includes('نسخ')){
-        const input = btn.parentElement ? btn.parentElement.querySelector('input') : null;
-        if(input){
-          input.select();
-          try{ document.execCommand('copy'); }catch(err){}
-        }
-        hcToast('📋 تم نسخ الرابط');
-        return;
-      }
-
-      if(btn.closest('.chat-input')){
-        const wrap = btn.closest('.chat-input');
-        const input = wrap.querySelector('input');
-        if(input && input.value.trim()){
-          const chatWindow = btn.closest('.chat-window');
-          const body = chatWindow ? chatWindow.querySelector('.chat-body') : null;
-          if(body){
-            const b = document.createElement('div');
-            b.className = 'bubble out';
-            b.textContent = input.value.trim();
-            body.appendChild(b);
-            body.scrollTop = body.scrollHeight;
-          }
-          input.value = '';
-        }
-        return;
-      }
-
-      if(btn.closest('.compose-actions')){
-        const compose = btn.closest('.compose');
-        const textarea = compose ? compose.querySelector('textarea') : null;
-        if(textarea && textarea.value.trim()){
-          const post = document.createElement('article');
-          post.className = 'panel post reveal in';
-          post.innerHTML = '<div class="post-head"><div class="avatar">أنا</div><div><b>أنت</b><span>الآن</span></div></div>'
-            + '<p class="body-text">' + textarea.value.trim().replace(/</g,'&lt;') + '</p>'
-            + '<div class="post-actions"><span>❤️ 0 إعجاب</span><span>💬 0 تعليق</span><span>🔁 مشاركة</span></div>';
-          compose.insertAdjacentElement('afterend', post);
-          textarea.value = '';
-          hcToast('✅ تم نشر منشورك');
-        } else {
-          hcToast('اكتب شيئًا أولًا');
-        }
-        return;
-      }
-
-      if(label) hcToast('✅ ' + label);
-    });
-  }catch(e){}
-
-  // like/comment/share text spans inside posts
-  try{
-    document.addEventListener('click', (e)=>{
-      const span = e.target.closest('.post-actions span');
-      if(!span) return;
-      if(span.textContent.includes('❤️') || span.textContent.includes('👏')){
-        const m = span.textContent.match(/(\d+)/);
-        if(m){ span.textContent = span.textContent.replace(/\d+/, parseInt(m[1],10)+1); }
-      }
-    });
-  }catch(e){}
 });

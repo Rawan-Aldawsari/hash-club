@@ -185,6 +185,31 @@ function hcShowStorageWarning(){
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Official Hash Club social accounts — shared by every footer.
+  try{
+    const socials = [
+      {key:'x', label:'X', url:'https://x.com/ihashclub'},
+      {key:'linkedin', label:'LinkedIn', url:'https://www.linkedin.com/company/hashclub/'},
+      {key:'instagram', label:'Instagram', url:'https://www.instagram.com/ihashclub/'},
+      {key:'tiktok', label:'TikTok', url:'https://www.tiktok.com/@ihashclub'}
+    ];
+    document.querySelectorAll('footer').forEach(footer => {
+      let row = footer.querySelector('.social-row');
+      if(!row){
+        const brand = footer.querySelector('.footer-brand');
+        if(brand){
+          row = document.createElement('div'); row.className='social-row'; brand.appendChild(row);
+        } else {
+          row = document.createElement('div'); row.className='social-row footer-social-row';
+          const bottom = footer.querySelector('.foot-bottom');
+          if(bottom) footer.querySelector('.container').insertBefore(row, bottom);
+          else footer.querySelector('.container').appendChild(row);
+        }
+      }
+      row.innerHTML = socials.map(s => `<a href="${s.url}" target="_blank" rel="noopener noreferrer" aria-label="${s.label}" data-social="${s.key}" title="${s.label}"></a>`).join('');
+    });
+  }catch(e){}
+
   // ---- inject header utility buttons (dark mode / notifications / language) ----
   try{
     const actions = document.querySelector('.header-actions');
@@ -401,4 +426,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }catch(e){}
 
+});
+
+
+// Hash Plus first-paint compatibility: remove the loading shell after the page is ready.
+document.addEventListener('DOMContentLoaded', () => {
+  requestAnimationFrame(() => document.documentElement.classList.add('hp-ready'));
 });

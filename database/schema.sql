@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS users (
   bio TEXT,
   skills_json TEXT,
   social_json TEXT,
+  avatar_data MEDIUMTEXT,
   membership_status ENUM('none', 'pending', 'accepted', 'rejected') NOT NULL DEFAULT 'none',
   membership_application_json TEXT,
   role VARCHAR(30) NOT NULL DEFAULT 'member',

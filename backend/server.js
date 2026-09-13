@@ -11,7 +11,11 @@ const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ROOT_DIR = path.join(__dirname, '..', 'frontend');
+const frontendCandidates = [
+  path.resolve(__dirname, '..', 'frontend'),
+  path.resolve(process.cwd(), 'frontend')
+];
+const ROOT_DIR = frontendCandidates.find(dir => require('fs').existsSync(path.join(dir, 'index.html'))) || frontendCandidates[0];
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
@@ -41,6 +45,7 @@ async function ensureDatabaseSchema() {
     bio TEXT,
     skills_json TEXT,
     social_json TEXT,
+    avatar_data MEDIUMTEXT,
     membership_status ENUM('none','pending','accepted','rejected') NOT NULL DEFAULT 'none',
     membership_application_json TEXT,
     role VARCHAR(30) NOT NULL DEFAULT 'member',
@@ -59,6 +64,7 @@ async function ensureDatabaseSchema() {
     ['bio', 'TEXT'],
     ['skills_json', 'TEXT'],
     ['social_json', 'TEXT'],
+    ['avatar_data', 'MEDIUMTEXT'],
     ['membership_status', "ENUM('none','pending','accepted','rejected') NOT NULL DEFAULT 'none'"],
     ['membership_application_json', 'TEXT'],
     ['role', "VARCHAR(30) NOT NULL DEFAULT 'member'"],
@@ -166,7 +172,7 @@ async function sendMail(message) {
   return transporter.sendMail({ from: process.env.SMTP_FROM || process.env.SMTP_USER, ...message });
 }
 
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: process.env.SESSION_SECRET || 'hash-club-dev-secret-change-me',
@@ -207,6 +213,7 @@ function publicUser(u) {
     bio: u.bio || '',
     skills: toJson(u.skills_json, []),
     social: toJson(u.social_json, { linkedin: '', github: '', twitter: '' }),
+    avatarData: u.avatar_data || '',
     membershipStatus: u.membership_status || 'none',
     role: u.role || 'member',
     createdAt: u.created_at
@@ -311,7 +318,17 @@ auth.get('/me', async (req, res, next) => {
 
 auth.patch('/profile', requireAuth, async (req, res, next) => {
   try {
-    const { university, major, bio, skills, social } = req.body || {};
+    const { university, major, bio, skills, social, avatarData } = req.body || {};
+    let nextAvatar = req.currentUser.avatar_data || '';
+    if (avatarData !== undefined) {
+      if (avatarData === '') {
+        nextAvatar = '';
+      } else if (typeof avatarData === 'string' && /^data:image\/(png|jpe?g|webp);base64,[A-Za-z0-9+/=]+$/.test(avatarData) && avatarData.length <= 1500000) {
+        nextAvatar = avatarData;
+      } else {
+        return res.status(400).json({ error: 'صورة الملف الشخصي غير صالحة أو حجمها كبير' });
+      }
+    }
     const nextSocial = {
       linkedin: social && typeof social.linkedin === 'string' ? social.linkedin.trim() : '',
       github: social && typeof social.github === 'string' ? social.github.trim() : '',
@@ -321,7 +338,7 @@ auth.patch('/profile', requireAuth, async (req, res, next) => {
 
     await pool.query(
       `UPDATE users
-       SET university = ?, major = ?, bio = ?, skills_json = ?, social_json = ?, updated_at = NOW(3)
+       SET university = ?, major = ?, bio = ?, skills_json = ?, social_json = ?, avatar_data = ?, updated_at = NOW(3)
        WHERE id = ?`,
       [
         typeof university === 'string' ? university.trim().slice(0, 150) : '',
@@ -329,6 +346,7 @@ auth.patch('/profile', requireAuth, async (req, res, next) => {
         typeof bio === 'string' ? bio.trim().slice(0, 600) : '',
         JSON.stringify(nextSkills),
         JSON.stringify(nextSocial),
+        nextAvatar,
         req.currentUser.id
       ]
     );

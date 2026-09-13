@@ -6,8 +6,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/global.css">
+
+    <!-- Hash Plus-compatible typography / first-paint setup -->
+    <link rel="preload" href="https://learn.ihashplus.com/fonts/BahijTheSansArabic-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://learn.ihashplus.com/fonts/BahijTheSansArabic-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&display=swap">
 </head>
 <body>
+    <div class="hp-boot" aria-label="جاري التحميل"><div class="hp-boot-spin"></div><div class="hp-boot-text">جاري التحميل...</div></div>
+
 <header id="siteHeader"><div class="container">
   <a href="../index.html" class="brand"><img src="../assets/logos/logo-navy.png" alt="نادي هاش"></a>
   <nav id="mainNav"><ul>
@@ -89,7 +98,7 @@
 <footer><div class="container">
   <div class="footer-grid">
     <div class="footer-brand"><img src="../assets/logos/logo-white.png" alt="نادي هاش"><p>نادٍ سحابي يجمع التعلّم والمجتمع التقني في منصة واحدة.</p>
-    <div class="social-row"><a href="javascript:void(0)">X</a><a href="javascript:void(0)">in</a><a href="javascript:void(0)">D</a><a href="javascript:void(0)">▶</a></div></div>
+    <div class="social-row"><a href="https://x.com/ihashclub" target="_blank" rel="noopener noreferrer" aria-label="X" data-social="x" title="X"></a><a href="https://www.linkedin.com/company/hashclub/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-social="linkedin" title="LinkedIn"></a><a href="https://www.instagram.com/ihashclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-social="instagram" title="Instagram"></a><a href="https://www.tiktok.com/@ihashclub" target="_blank" rel="noopener noreferrer" aria-label="TikTok" data-social="tiktok" title="TikTok"></a></div></div>
     <div class="foot-col"><h5>النادي</h5><ul><li><a href="../index.html#about">عن النادي</a></li><li><a href="events.html">الفعاليات</a></li><li><a href="courses.html">الدورات</a></li><li><a href="committees.html">اللجان</a></li></ul></div>
     <div class="foot-col"><h5>الموارد</h5><ul><li><a href="blog.html">المدونة</a></li><li><a href="resources.html">مكتبة الموارد</a></li><li><a href="search.html">البحث الشامل</a></li><li><a href="projects.html">مشاريع الأعضاء</a></li></ul></div>
     <div class="foot-col"><h5>العضوية</h5><ul><li><a href="join.html">قدّم طلب انضمام</a></li><li><a href="auth.html">تسجيل الدخول</a></li><li><a href="dashboards.html">لوحات التحكم</a></li><li><a href="settings.html">الإعدادات</a></li></ul></div>

@@ -24,17 +24,15 @@
   <div class="container">
     <div class="breadcrumb"><a href="../index.html">الرئيسية</a> / الملف الشخصي</div>
     <div class="profile-head reveal">
-      <div class="avatar lg">ل.ش</div>
-      <div class="info">
-        <h1>لمى الشمري</h1>
-        <p>قائدة لجنة التصميم · جامعة الأميرة نورة · تصميم واجهات وتجربة مستخدم</p>
-        <div class="chips">
-          <span class="pill">عضو مميز</span>
-          <span class="pill">قائدة لجنة</span>
-          <span class="pill">🔥 المستوى 7</span>
-        </div>
+      <div class="profile-avatar-wrap">
+        <div class="avatar lg profile-avatar" id="pAvatar">؟</div>
+        <label class="avatar-upload" for="avatarInput" title="تغيير الصورة الشخصية">📷</label>
+        <input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
       </div>
-      <div class="level-box"><b>2,340</b><span>نقطة إجمالية</span></div>
+      <div class="info">
+        <h1 id="pName">...</h1>
+        <p id="pMeta">جارِ التحميل...</p>
+      </div>
     </div>
   </div>
 </section>
@@ -44,52 +42,52 @@
     <div class="grid-2" style="grid-template-columns:2fr 1fr;gap:26px;align-items:start;">
       <div>
         <div class="panel reveal" style="margin-bottom:22px;">
-          <h4 style="color:var(--navy);margin-bottom:12px;">نبذة</h4>
-          <p style="color:var(--ink-soft);font-size:14.5px;line-height:1.9;">مصممة واجهات شغوفة بتجربة المستخدم، انضممت لهاش قبل عامين وأقود الآن لجنة التصميم. أؤمن أن التصميم الجيد يبدأ من فهم عميق للمستخدم قبل أي شيء آخر.</p>
-          <h5 style="font-size:13px;color:var(--navy);margin:18px 0 10px;">المهارات</h5>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <span class="skill-chip">Figma</span><span class="skill-chip">UI Design</span><span class="skill-chip">Design Systems</span><span class="skill-chip">Prototyping</span><span class="skill-chip">HTML/CSS</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="color:var(--ink);">نبذة ومعلومات</h4>
+            <button class="btn btn-ghost sm js-toggle-form" id="editProfileBtn">تعديل</button>
           </div>
-          <h5 style="font-size:13px;color:var(--navy);margin:18px 0 10px;">وسائل التواصل</h5>
-          <div style="display:flex;gap:10px;">
-            <a href="#" class="pill">LinkedIn</a><a href="#" class="pill">GitHub</a><a href="#" class="pill">X</a>
+          <div id="profileView">
+            <p id="pBio" style="color:var(--ink-soft);font-size:14.5px;line-height:1.9;"></p>
+            <h5 style="font-size:13px;color:var(--ink);margin:18px 0 10px;">المهارات</h5>
+            <div id="pSkills" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+            <h5 style="font-size:13px;color:var(--ink);margin:18px 0 10px;">وسائل التواصل</h5>
+            <div id="pSocial" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
           </div>
-        </div>
-
-        <div class="panel reveal" style="margin-bottom:22px;">
-          <h4 style="color:var(--navy);margin-bottom:16px;">الإنجازات والشارات</h4>
-          <div class="badge-grid">
-            <div class="badge-tile"><div class="ic">🏆</div><h6>قائدة لجنة</h6><span>2025</span></div>
-            <div class="badge-tile"><div class="ic">🔥</div><h6>10 فعاليات</h6><span>حضور كامل</span></div>
-            <div class="badge-tile"><div class="ic">🎓</div><h6>5 شهادات</h6><span>دورات مكتملة</span></div>
-            <div class="badge-tile"><div class="ic">🤝</div><h6>سفيرة هاش</h6><span>2026</span></div>
-            <div class="badge-tile locked"><div class="ic">🚀</div><h6>100 مشاركة</h6><span>مقفلة</span></div>
+          <div id="profileEditForm" style="display:none;">
+            <div class="row-2">
+              <div class="field"><label>الجامعة</label><input class="input" id="fUniversity" placeholder="مثال: جامعة الملك سعود"></div>
+              <div class="field"><label>التخصص</label><input class="input" id="fMajor" placeholder="مثال: علوم الحاسب"></div>
+            </div>
+            <div class="field"><label>نبذة عنك</label><textarea class="input" id="fBio" placeholder="اكتبي نبذة قصيرة عن نفسك..."></textarea></div>
+            <div class="field"><label>المهارات (افصلي بفاصلة)</label><input class="input" id="fSkills" placeholder="Figma, React, Python"></div>
+            <div class="row-2">
+              <div class="field"><label>LinkedIn (اختياري)</label><input class="input" id="fLinkedin" placeholder="https://linkedin.com/in/..."></div>
+              <div class="field"><label>GitHub (اختياري)</label><input class="input" id="fGithub" placeholder="https://github.com/..."></div>
+            </div>
+            <div class="profile-form-actions" style="display:flex;gap:10px;">
+              <button class="btn btn-primary js-save-profile" id="saveProfileBtn">حفظ</button>
+              <button class="btn btn-ghost js-toggle-form" id="cancelEditBtn">إلغاء</button>
+            </div>
           </div>
         </div>
 
         <div class="panel reveal">
-          <h4 style="color:var(--navy);margin-bottom:16px;">سجل النشاط</h4>
-          <div class="timeline">
-            <div class="tl-item"><span class="time">اليوم</span><b>أنهت دورة "تصميم أنظمة التصميم"</b><p>حصلت على شهادة إتمام بتقييم 5.0</p></div>
-            <div class="tl-item"><span class="time">قبل 3 أيام</span><b>نشرت مشروعًا جديدًا</b><p>"نظام تصميم هاش" في معرض المشاريع</p></div>
-            <div class="tl-item"><span class="time">الأسبوع الماضي</span><b>حضرت هاكاثون هاش الفصلي</b><p>ضمن فريق فاز بالمركز الثاني</p></div>
-          </div>
+          <h4 style="color:var(--ink);margin-bottom:16px;">نشاطي الحقيقي</h4>
+          <div id="activityTimeline" class="timeline"></div>
+          <div id="activityEmpty" style="display:none;color:var(--ink-soft);font-size:13.5px;">ما شاركتِ أي محتوى بعد — ابدئي بمنشور في <a href="community.html" style="color:var(--periwinkle);font-weight:700;">المجتمع</a>، أو مشروع في <a href="projects.html" style="color:var(--periwinkle);font-weight:700;">معرض المشاريع</a>، أو مقال في <a href="blog.html" style="color:var(--periwinkle);font-weight:700;">المدونة</a>.</div>
         </div>
       </div>
 
       <div>
         <div class="panel reveal" style="margin-bottom:22px;">
-          <h4 style="color:var(--navy);margin-bottom:14px;">الشهادات</h4>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div class="pill navy" style="justify-content:space-between;display:flex;">تصميم أنظمة التصميم <span>PDF</span></div>
-            <div class="pill navy" style="justify-content:space-between;display:flex;">أساسيات UX <span>PDF</span></div>
-          </div>
-          <a href="certificates.html" class="btn btn-ghost sm btn-block" style="margin-top:14px;">عرض كل الشهادات</a>
+          <h4 style="color:var(--ink);margin-bottom:14px;">إحصائياتي الحقيقية</h4>
+          <div class="info-row"><span>منشورات المجتمع</span><span class="pill" id="statPosts">0</span></div>
+          <div class="info-row"><span>مشاريع منشورة</span><span class="pill" id="statProjects">0</span></div>
+          <div class="info-row" style="border-bottom:none;"><span>مقالات المدونة</span><span class="pill" id="statBlog">0</span></div>
         </div>
         <div class="panel reveal">
-          <h4 style="color:var(--navy);margin-bottom:14px;">التقدّم نحو المستوى القادم</h4>
-          <div class="progress" style="margin-bottom:8px;"><span style="width:68%;"></span></div>
-          <p style="font-size:12.5px;color:var(--ink-soft);">2,340 / 3,000 نقطة للمستوى 8</p>
+          <h4 style="color:var(--ink);margin-bottom:10px;">الشهادات</h4>
+          <p style="font-size:12.5px;color:var(--ink-soft);line-height:1.8;">نظام إصدار الشهادات قيد التطوير حاليًا — ستظهر هنا شهاداتك فور توفره.</p>
         </div>
       </div>
     </div>
@@ -99,7 +97,7 @@
 <footer><div class="container">
   <div class="footer-grid">
     <div class="footer-brand"><img src="../assets/logos/logo-white.png" alt="نادي هاش"><p>نادٍ سحابي يجمع التعلّم والمجتمع التقني في منصة واحدة.</p>
-    <div class="social-row"><a href="#">X</a><a href="#">in</a><a href="#">D</a><a href="#">▶</a></div></div>
+    <div class="social-row"><a href="https://x.com/ihashclub" target="_blank" rel="noopener noreferrer" aria-label="X" data-social="x" title="X"></a><a href="https://www.linkedin.com/company/hashclub/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-social="linkedin" title="LinkedIn"></a><a href="https://www.instagram.com/ihashclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-social="instagram" title="Instagram"></a><a href="https://www.tiktok.com/@ihashclub" target="_blank" rel="noopener noreferrer" aria-label="TikTok" data-social="tiktok" title="TikTok"></a></div></div>
     <div class="foot-col"><h5>النادي</h5><ul><li><a href="../index.html#about">عن النادي</a></li><li><a href="events.html">الفعاليات</a></li><li><a href="courses.html">الدورات</a></li><li><a href="committees.html">اللجان</a></li></ul></div>
     <div class="foot-col"><h5>الموارد</h5><ul><li><a href="blog.html">المدونة</a></li><li><a href="resources.html">مكتبة الموارد</a></li><li><a href="search.html">البحث الشامل</a></li><li><a href="projects.html">مشاريع الأعضاء</a></li></ul></div>
     <div class="foot-col"><h5>العضوية</h5><ul><li><a href="join.html">قدّم طلب انضمام</a></li><li><a href="auth.html">تسجيل الدخول</a></li><li><a href="dashboards.html">لوحات التحكم</a></li><li><a href="settings.html">الإعدادات</a></li></ul></div>
@@ -107,9 +105,12 @@
   <div class="foot-bottom"><span>© 2026 نادي هاش.</span><span>صُنع بهوية هاش</span></div>
 </div></footer>
 <script src="../js/main.js"></script>
+<script src="../js/pages/profile.js"></script>
 <script src="../js/pages/phase5.js"></script>
-<script src="../frontend/js/pages/phase6.js"></script>
+<script src="../js/pages/phase6.js"></script>
 <script src="../js/pages/phase7.js"></script>
 <script src="../js/pages/phase8.js"></script>
 <script src="../js/pages/phase9.js"></script>
+  <script src="../js/pages/phase10.js"></script>
+<script src="../js/pages/phase11.js"></script>
 </body></html>
