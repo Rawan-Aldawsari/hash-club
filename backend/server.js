@@ -11,11 +11,15 @@ const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+<<<<<<< HEAD
 const frontendCandidates = [
   path.resolve(__dirname, '..', 'frontend'),
   path.resolve(process.cwd(), 'frontend')
 ];
 const ROOT_DIR = frontendCandidates.find(dir => require('fs').existsSync(path.join(dir, 'index.html'))) || frontendCandidates[0];
+=======
+const ROOT_DIR = path.resolve(__dirname, '..', 'frontend');
+>>>>>>> 28d7181fb9011eab920683aaa3086fb2cd7ad7bd
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
